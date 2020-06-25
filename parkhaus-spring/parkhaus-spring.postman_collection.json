@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "e73a3b62-17c7-4672-9309-a0519ec5e9b0",
+		"name": "parkhaus-spring",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "parkticket anlegen",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkticket?entered=2020-01-31T18:00",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkticket"
+					],
+					"query": [
+						{
+							"key": "entered",
+							"value": "2020-01-31T18:00"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get parkticket",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkticket?id=324e1e46-9c9a-4364-a53b-08330c41dc17",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkticket"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "324e1e46-9c9a-4364-a53b-08330c41dc17"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get parkticket amount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkticket/324e1e46-9c9a-4364-a53b-08330c41dc17/getPaymentAmount",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkticket",
+						"324e1e46-9c9a-4364-a53b-08330c41dc17",
+						"getPaymentAmount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "make payment",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"id\": \"324e1e46-9c9a-4364-a53b-08330c41dc17\", \"payment\":\"5078.0\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/parkticket/makePayment/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkticket",
+						"makePayment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkticket/getAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkticket",
+						"getAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "is allowed to exit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkticket/324e1e46-9c9a-4364-a53b-08330c41dc17/isAllowedToExit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkticket",
+						"324e1e46-9c9a-4364-a53b-08330c41dc17",
+						"isAllowedToExit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "schranke",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8281/schranke/ba70c776-d0e8-458d-a311-83e35a0ee93d",
+					"host": [
+						"localhost"
+					],
+					"port": "8281",
+					"path": [
+						"schranke",
+						"ba70c776-d0e8-458d-a311-83e35a0ee93d"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6ef99c34-748c-4159-a488-6bcb5131e906",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7e2a27e8-c350-4585-9796-b5db524fa43f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

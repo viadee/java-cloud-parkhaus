@@ -1,0 +1,15 @@
+FROM  quay.io/quarkus/centos-quarkus-maven:19.3.1-java11 as graalvm
+COPY pom.xml /usr/src/app/
+RUN mvn -f /usr/src/app/pom.xml -B de.qaware.maven:go-offline-maven-plugin:1.2.5:resolve-dependencies
+COPY src /usr/src/app/src
+USER root
+RUN chown -R quarkus /usr/src/app
+USER quarkus
+ENV H2_URL jdbc:h2:tcp://quarkus-h2:1521/test
+RUN mvn -ntp -f /usr/src/app/pom.xml -Pnative clean package -Dquarkus.datasource.url=$H2_URL -DskipTests
+
+FROM frolvlad/alpine-glibc
+RUN apk update && apk add libstdc++
+EXPOSE 8180
+COPY --from=graalvm  /usr/src/app/target/*-runner ./parkhaus-manager
+ENTRYPOINT ["./parkhaus-manager"]

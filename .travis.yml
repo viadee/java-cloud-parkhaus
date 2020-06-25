@@ -1,0 +1,14 @@
+language: java
+
+jdk:
+  - oraclejdk11
+
+script:
+  - cd parkhaus-micronaut/parkhaus-manager/ && mvn clean install && cd -
+  - cd parkhaus-micronaut/parkhaus-schranke/ && mvn clean install && cd -
+  - cd parkhaus-quarkus/parkhaus-manager/ && mvn clean install && cd -
+  - cd parkhaus-quarkus/parkhaus-schranke/ && mvn clean install && cd -
+  - cd parkhaus-spring/parkhaus-manager/ && mvn clean install && cd -
+  - cd parkhaus-spring/parkhaus-schranke/ && mvn clean install && cd -
+  
+

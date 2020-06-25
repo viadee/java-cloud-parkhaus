@@ -1,0 +1,12 @@
+micronaut:
+  application:
+    name: parkhaus-schranke-micronaut
+  server:
+    port: 8281
+
+  http:
+    port:
+    services:
+      parkhaus-manager:
+        urls:
+          - http://localhost:8280/
