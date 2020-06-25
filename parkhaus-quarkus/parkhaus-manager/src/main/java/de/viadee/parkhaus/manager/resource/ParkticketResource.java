@@ -2,6 +2,8 @@ package de.viadee.parkhaus.manager.resource;
 
 import de.viadee.parkhaus.manager.entity.Parkticket;
 import de.viadee.parkhaus.manager.service.ParkticketService;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import org.jboss.resteasy.annotations.Body;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -26,8 +28,9 @@ public class ParkticketResource {
     }
 
     @GET
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Parkticket get(String id) {
+    public Parkticket get(@PathParam("id") String id) {
       return parkticketService.get(id);
     }
 
@@ -39,9 +42,9 @@ public class ParkticketResource {
     }
 
     @PUT
-    @Path("{id}/makePayment")
+    @Path("/{id}/makePayment")
     @Consumes(MediaType.TEXT_PLAIN)
-    public Boolean makePayment(@PathParam("id") String id, Double payment) {
+    public Boolean makePayment(@PathParam("id") String id, @RequestBody Double payment) {
         return parkticketService.makePayment(id, payment);
     }
 

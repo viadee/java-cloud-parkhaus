@@ -10,7 +10,7 @@ import javax.ws.rs.PathParam;
 @Path("/parkticket")
 public interface ParkhausManager {
 
-    @Path("{id}/isAllowedToExit")
+    @Path("/{id}/isAllowedToExit")
     @GET
     public boolean isAllowedToExit(@PathParam("id") String id);
 
