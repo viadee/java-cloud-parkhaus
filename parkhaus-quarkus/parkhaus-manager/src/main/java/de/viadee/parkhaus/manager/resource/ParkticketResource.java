@@ -22,9 +22,6 @@ public class ParkticketResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public String create(@QueryParam("entered") LocalDateTime entered) {
-        if (entered == null) {
-            throw new BadRequestException("entered must be specified");
-        }
         return parkticketService.create(entered);
     }
 

@@ -6,6 +6,7 @@ import de.viadee.parkhaus.manager.repository.ParkticketRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -25,6 +26,10 @@ public class ParkticketService {
     }
 
     public String create(LocalDateTime entered) {
+        if (entered == null) {
+            throw new BadRequestException("entered must be specified");
+        }
+        
         Parkticket parkticket = new Parkticket(entered);
 
         parkticketRepository.persist(parkticket);
