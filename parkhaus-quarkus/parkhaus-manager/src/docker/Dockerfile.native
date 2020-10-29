@@ -1,4 +1,4 @@
-FROM  quay.io/quarkus/centos-quarkus-maven:19.3.1-java11 as graalvm
+FROM  quay.io/quarkus/centos-quarkus-maven:20.2.0-java11 as graalvm
 COPY pom.xml /usr/src/app/
 RUN mvn -f /usr/src/app/pom.xml -B de.qaware.maven:go-offline-maven-plugin:1.2.5:resolve-dependencies
 COPY src /usr/src/app/src
@@ -7,7 +7,7 @@ RUN chown -R quarkus /usr/src/app
 USER quarkus
 ENV H2_URL jdbc:h2:tcp://quarkus-h2:1521/test
 RUN mvn -ntp -f /usr/src/app/pom.xml -Pnative clean test
-RUN mvn -ntp -f /usr/src/app/pom.xml -Pnative package -Dquarkus.datasource.url=$H2_URL -DskipTests
+RUN mvn -ntp -f /usr/src/app/pom.xml -Pnative package -Dquarkus.datasource.jdbc.url=$H2_URL -DskipTests
 
 FROM frolvlad/alpine-glibc
 RUN apk update && apk add libstdc++
