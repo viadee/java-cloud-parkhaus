@@ -1,0 +1,23 @@
+FROM maven:3.6.3-openjdk-11 as maven
+COPY . /home/app/parkhaus-manager
+WORKDIR /home/app/parkhaus-manager
+RUN mvn -ntp install
+
+FROM ghcr.io/graalvm/graalvm-ce:java11-21.0.0 as graalvm
+COPY --from=maven /home/app/parkhaus-manager /home/app/parkhaus-manager
+WORKDIR /home/app/parkhaus-manager
+RUN gu install native-image
+RUN mkdir -p /home/app/parkhaus-manager/target/native-image
+WORKDIR /home/app/parkhaus-manager/target/native-image
+
+RUN jar -xvf ../parkhaus-manager-spring-1.0-SNAPSHOT.jar >/dev/null 2>&1 &&\
+    cp -R META-INF BOOT-INF/classes &&\
+    export LIBPATH=`find BOOT-INF/lib | tr '\n' ':'` &&\
+    export CP=BOOT-INF/classes:$LIBPATH &&\
+    native-image -H:Name=parkhaus-manager-spring -Dspring.spel.ignore=true -Dspring.native.remove-yaml-support=true -cp BOOT-INF/classes:$LIBPATH de.viadee.parkhaus.manager.ParkhausManagerApp
+
+FROM frolvlad/alpine-glibc
+RUN apk update && apk add libstdc++
+EXPOSE 8280
+COPY --from=graalvm /home/app/parkhaus-manager/target/native-image .
+ENTRYPOINT ["./parkhaus-manager-spring"]

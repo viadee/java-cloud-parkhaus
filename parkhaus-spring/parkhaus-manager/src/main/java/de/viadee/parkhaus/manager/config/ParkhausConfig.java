@@ -1,12 +1,10 @@
 package de.viadee.parkhaus.manager.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
-@Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties
-@ConfigurationProperties("parkhaus")
+@ConfigurationProperties(prefix = "parkhaus")
+@ConstructorBinding
 public class ParkhausConfig {
 
    private double gebuehr;
