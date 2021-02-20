@@ -19,5 +19,5 @@ RUN jar -xvf ../parkhaus-manager-spring-1.0-SNAPSHOT.jar >/dev/null 2>&1 &&\
 FROM frolvlad/alpine-glibc
 RUN apk update && apk add libstdc++
 EXPOSE 8280
-COPY --from=graalvm /home/app/parkhaus-manager/target/native-image .
+COPY --from=graalvm /home/app/parkhaus-manager/target/native-image/parkhaus-manager-spring .
 ENTRYPOINT ["./parkhaus-manager-spring"]

@@ -3,7 +3,7 @@ COPY . /home/app/parkhaus-manager
 WORKDIR /home/app/parkhaus-manager
 RUN mvn -ntp install
 
-FROM oracle/graalvm-ce:20.2.0-java11
+FROM ghcr.io/graalvm/graalvm-ce:java11-21.0.0
 COPY --from=maven /home/app/parkhaus-manager/target/lib/* /deployments/lib/
 COPY --from=maven /home/app/parkhaus-manager/target/*-runner.jar /deployments/app.jar
 EXPOSE 8180
