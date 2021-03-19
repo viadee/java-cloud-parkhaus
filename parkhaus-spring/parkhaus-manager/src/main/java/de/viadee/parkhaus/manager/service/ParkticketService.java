@@ -3,6 +3,8 @@ package de.viadee.parkhaus.manager.service;
 import de.viadee.parkhaus.manager.config.ParkhausConfig;
 import de.viadee.parkhaus.manager.entity.Parkticket;
 import de.viadee.parkhaus.manager.repository.ParkticketRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,8 @@ import java.util.NoSuchElementException;
 
 @Component
 public class ParkticketService {
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     private ParkticketRepository parkticketRepository;
 
