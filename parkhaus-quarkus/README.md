@@ -47,18 +47,18 @@ mvn quarkus:dev -D debug=5105
 
 Die Anwendung kann auch als GraalVM Native Image kompiliert werden. Dies ist im Docker-Image im Ordner `parkhaus-manager/src/docker/Dockerfile.native` umgesetzt.  Allerdings werden Embedded-Datenbank als Native-Image nicht unterstüzt (siehe [Quarkus Datasource Guide](https://quarkus.io/guides/datasource#jdbc-datasource-2)). Dementsprechend benötigen wir eine externe Datenbank, die von der Anwendung genutzt werden kann. Dazu starten wir eine H2-Instanz als zusätzlichen Docker-Container. Das `Dockerfile.native` ist konfiguriert, die externe Datenbank auf Port 1521 zu verwenden. Zusätzlich führen wir die Container in einem eigenen Docker-Network aus.
 
-#### Docker Network anlegen:
-
-```
-docker network create native-quarkus
-```
-
 
 #### Image bauen: 
 
 ```
 cd parkhaus-manager
-docker build --file src/docker/Dockerfile.native -t manager-quarkus-native .
+mvn package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
+```
+
+#### Docker Network anlegen:
+
+```
+docker network create native-quarkus
 ```
 
 #### Container starten: 
@@ -73,7 +73,6 @@ docker run -d -p 1521:1521 -p 81:81 -e H2_OPTIONS='-ifNotExists' --network nativ
 ##### Quarkus-Container
 
 ```
-
-docker run -p 8180:8180 --network native-quarkus --name native-quarkus manager-quarkus-native
+docker run -i -p 8181:8181 --network native-quarkus $USER/parkhaus-manager-quarkus:1.0 "-Dquarkus.datasource.jdbc.url=jdbc:h2:tcp://quarkus-h2:1521/test"
 ```
 
