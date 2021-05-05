@@ -52,7 +52,7 @@ Die Anwendung kann auch als GraalVM Native Image kompiliert werden.
 
 ```
 cd parkhaus-manager
- mvn package -Dpackaging=docker-native -Pgraalvm
+mvn package -Dpackaging=docker-native -Pgraalvm
 
 ```
 
